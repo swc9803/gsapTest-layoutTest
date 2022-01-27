@@ -26,11 +26,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .dd {
   width: 50px;
   height: 50px;
   background: black;
-  filter: blur(2px) grayscale(0.5);
 }
 </style>

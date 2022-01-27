@@ -39,7 +39,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .box {
   width: 200px;
   height: 200px;

@@ -1,14 +1,36 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" @mousemove="move">
     <div class="circle" />
     <div class="fixed"/>
+
+    <div class="ss">
+      <div class="eye">
+        <div class="ball" ref="ball1"></div>
+      </div>
+      <div class="eye">
+        <div class="ball" ref="ball2"></div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 export default {
   setup () {
+    const ball1 = ref()
+    const ball2 = ref()
+    const move = (e) => {
+      const x = e.clientX + 'px'
+      const y = e.clientY + 'px'
+      const rex = e.clientX + 'px'
+      const rey = e.clientY + 'px'
+
+      ball1.value.style.left = x
+      ball1.value.style.top = y
+      ball2.value.style.left = rex
+      ball2.value.style.top = rey
+    }
     onMounted(() => {
       const circle = document.querySelector('.circle')
       document.addEventListener('mousemove', (e) => {
@@ -18,11 +40,14 @@ export default {
         circle.style.top = mouseY + 'px'
       })
     })
+    return {
+      ball1, ball2, move
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .wrapper {
   position: absolute;
   margin: 0;
@@ -59,5 +84,23 @@ export default {
   filter: grayscale(0) blur(5px);
   transform: translate(-50%, -50%);
   z-index: 1;
+}
+
+.ss{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+.ball{
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+  background: #aca9a9;
+  border-radius: 50%;;
+  border: 15px solid #333333;
 }
 </style>

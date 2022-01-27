@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .drawtext {
   stroke-dasharray: 500; /*이 값은 path의 길이와 동일합니다*/
   stroke-dashoffset: 500;

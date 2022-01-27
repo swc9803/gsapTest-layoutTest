@@ -13,6 +13,9 @@ import Test10 from '@/pages/Test10.vue'
 import Test11 from '@/pages/Test11.vue'
 import Test12 from '@/pages/Test12.vue'
 import Test13 from '@/pages/Test13.vue'
+import Test14 from '@/pages/Test14.vue'
+import Test15 from '@/pages/Test15.vue'
+import Test16 from '@/pages/Test16.vue'
 
 const routes = [
   {
@@ -89,6 +92,21 @@ const routes = [
     path: '/test13',
     name: 'Test13',
     component: Test13
+  },
+  {
+    path: '/test14',
+    name: 'Test14',
+    component: Test14
+  },
+  {
+    path: '/test15',
+    name: 'Test15',
+    component: Test15
+  },
+  {
+    path: '/test16',
+    name: 'Test16',
+    component: Test16
   }
 ]
 
