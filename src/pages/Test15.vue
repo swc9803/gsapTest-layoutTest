@@ -1,184 +1,114 @@
 <template>
-  <!-- 컴포넌트화 -->
-  <canvas ref="canvas"/>
-  ddddd
+  <div class="container">
+    <SpaceBackground />
+    <div class="wrapper">
+      <!-- 최성우 누르면 소개페이지로 -->
+      <p ref="mainText">끝없이 배움을 추구하는 개발자<b> 최성우 </b>입니다</p>
+      <p>hi</p>
+    </div>
+  </div>
+  <div class="container">
+    소개
+  </div>
+  <div class="container">
+    백그라운드 이미지 피자처럼
+  </div>
+  <div class="container">
+    작업물
+  </div>
 </template>
 
 <script>
-import { onMounted, ref } from '@vue/runtime-core'
+import SpaceBackground from '@/components/SpaceBackground'
+import gsap from 'gsap'
+import { onMounted, ref } from 'vue'
 
 export default {
   setup () {
-    const canvas = ref()
+    const mainText = ref()
+
     onMounted(() => {
-      const starCount = (innerWidth + innerHeight) / 5
-      const starSize = 3
-      const starMinSize = 0.2
-      const overflowThreshold = 20
-      const ctx = canvas.value.getContext('2d')
-      let scale = 1
-      let width, height
-      const stars = []
-      let pointerX, pointerY
-      const velocity = { x: 0, y: 0, tx: 0, ty: 0, z: 0.0015 }
-      let touchInput = false
-
-      generate()
-      resize()
-      step()
-
-      onresize = resize
-      canvas.value.onmousemove = onMouseMove
-      canvas.value.ontouchmove = onTouchMove
-
-      function generate () {
-        for (let i = 0; i < starCount; i++) {
-          stars.push({
-            x: 0,
-            y: 0,
-            z: starMinSize + Math.random() * (1 - starMinSize)
-          })
-        }
-      }
-
-      function placeStar (star) {
-        star.x = Math.random() * width
-        star.y = Math.random() * height
-      }
-
-      function recycleStar (star) {
-        let direction = 'z'
-        const vx = Math.abs(velocity.tx)
-        const vy = Math.abs(velocity.ty)
-
-        if (vx > 1 && vy > 1) {
-          let axis
-          if (vx > vy) {
-            axis = Math.random() < Math.abs(velocity.x) / (vx + vy) ? 'h' : 'v'
-          } else {
-            axis = Math.random() < Math.abs(velocity.y) / (vx + vy) ? 'v' : 'h'
-          }
-
-          if (axis === 'h') {
-            direction = velocity.x > 0 ? 'l' : 'r'
-          } else {
-            direction = velocity.y > 0 ? 't' : 'b'
-          }
-        }
-        star.z = starMinSize + Math.random() * (1 - starMinSize)
-
-        if (direction === 'z') {
-          star.z = 0.1
-          star.x = Math.random() * width
-          star.y = Math.random() * height
-        } else
-        if (direction === 'l') {
-          star.x = -starSize
-          star.y = height * Math.random()
-        } else
-        if (direction === 'r') {
-          star.x = width + starSize
-          star.y = height * Math.random()
-        } else
-        if (direction === 't') {
-          star.x = width * Math.random()
-          star.y = -starSize
-        } else
-        if (direction === 'b') {
-          star.x = width * Math.random()
-          star.y = height + starSize
-        }
-      }
-
-      function resize () {
-        scale = devicePixelRatio || 1
-        width = innerWidth * scale
-        height = innerHeight * scale
-        canvas.value.width = width
-        canvas.value.height = height
-        stars.forEach(placeStar)
-      }
-
-      function step () {
-        ctx.clearRect(0, 0, width, height)
-
-        update()
-        render()
-        requestAnimationFrame(step)
-      }
-
-      function update () {
-        velocity.tx *= 0.8
-        velocity.ty *= 0.8
-        velocity.x += (velocity.tx - velocity.x) * 0.4
-        velocity.y += (velocity.ty - velocity.y) * 0.4
-
-        stars.forEach(star => {
-          star.x += velocity.x * star.z
-          star.y += velocity.y * star.z
-          star.x += (star.x - width / 2) * velocity.z * star.z
-          star.y += (star.y - height / 2) * velocity.z * star.z
-          star.z += velocity.z
-
-          if (star.x < -overflowThreshold || star.x > width + overflowThreshold || star.y < -overflowThreshold || star.y > height + overflowThreshold) {
-            recycleStar(star)
-          }
-        })
-      }
-
-      function render () {
-        stars.forEach(star => {
-          ctx.beginPath()
-          ctx.lineCap = 'round'
-          ctx.lineWidth = starSize * star.z * scale
-          ctx.strokeStyle = 'rgba(255, 255, 255,' + (0.7 + 0.7 * Math.random()) + ')'
-          ctx.beginPath()
-          ctx.moveTo(star.x, star.y)
-
-          var tailX = velocity.x * 2
-          var tailY = velocity.y * 2
-
-          if (Math.abs(tailX) < 0.1) tailX = 0.4
-          if (Math.abs(tailY) < 0.1) tailY = 0.4
-
-          ctx.lineTo(star.x + tailX, star.y + tailY)
-          ctx.stroke()
-        })
-      }
-
-      function movePointer (x, y) {
-        if (typeof pointerX === 'number' && typeof pointerY === 'number') {
-          const ox = x - pointerX
-          const oy = y - pointerY
-          velocity.tx = velocity.x + ox / 8 * scale * (touchInput ? -1 : 1)
-          velocity.ty = velocity.y + oy / 8 * scale * (touchInput ? -1 : 1)
-        }
-        pointerX = x
-        pointerY = y
-      }
-
-      function onMouseMove (e) {
-        touchInput = false
-        movePointer(e.clientX / 5, e.clientY / 5)
-      }
-      function onTouchMove (e) {
-        touchInput = true
-        movePointer(e.touches[0].clientX / 5, e.touches[0].clientY / 5, true)
-        e.preventDefault()
-      }
+      gsap.from(mainText.value, {
+        opacity: 0, yPercent: -20, duration: 1, ease: 'ease-out', delay: 1
+      })
     })
     return {
-      canvas
+      mainText
     }
+  },
+  components: {
+    SpaceBackground
   }
 }
 </script>
 
 <style lang="scss" scoped>
-canvas {
+@font-face {
+  font-family: 'KOTRALEAP';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRALEAP.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+.container {
   position: relative;
-  background: rgb(22, 22, 22);
   width: 100%;
   height: 100%;
+  canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgb(22, 22, 22);
+  }
+  .wrapper {
+    position: relative;
+    padding: 6% 2%;
+    text-align: center;
+    font-family: 'KOTRALEAP';
+    p {
+      margin: 0;
+      font-size: 1.8em;
+      font-weight: 400;
+      color: white;
+      b {
+        color: rgb(255, 255, 175);
+        transform-origin: center center;
+        cursor: pointer;
+        transition: .3s;
+        &:hover {
+          color: rgb(255, 200, 80);
+        }
+        &::before {
+          position: absolute;
+          content: '★';
+          color: white;
+          font-size: 0.3em;
+          margin: 1em 0 0 0.5em;
+          animation: twinkle 5s infinite;
+        }
+        &::after {
+          position: absolute;
+          content: '★';
+          color: white;
+          font-size: 0.3em;
+          margin: 2.5em 0 0 -4.2em;
+          animation: twinkle 5s infinite;
+        }
+        @keyframes twinkle {
+          0% {
+            opacity: 0; rotate: 0deg;
+          }
+          5% {
+            opacity: 1; transform: scale(1.3); rotate: 90deg;
+          }
+          10% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
