@@ -7,22 +7,28 @@
         <span v-for="star in stars" :key="star.id" class="twinkle" :ref="twinkle">★</span>
         <b> 최성우 </b>입니다
       </p>
-      <p>hi</p>
     </div>
   </div>
-  <div class="container">
-    About Me
+  <div class="container second">
+    <Snow class="snow" />
+    <div class="wrapper">
+      <p>About Me</p>
+      <div class="picture">
+        내 사진
+      </div>
+    </div>
   </div>
-  <div class="container">
+  <div class="container third">
     작업물
   </div>
-  <div class="container">
+  <div class="container fourth">
     Contact
   </div>
 </template>
 
 <script>
 import SpaceBackground from '@/components/SpaceBackground'
+import Snow from '@/components/Snow'
 import gsap from 'gsap'
 import { onMounted, ref } from 'vue'
 
@@ -71,7 +77,7 @@ export default {
     }
   },
   components: {
-    SpaceBackground
+    SpaceBackground, Snow
   }
 }
 </script>
@@ -91,14 +97,18 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgb(22, 22, 22);
+    background: linear-gradient(to top, rgb(70, 70, 70), rgb(40, 40, 40), rgb(25, 25, 25), rgb(22, 22, 22));
   }
   .wrapper {
     position: relative;
-    padding: 20% 2%;
+    pointer-events: none;
+    top: 50%;
+    transform: translate(0, -50%);
     text-align: center;
     font-family: 'KOTRALEAP';
     p {
+      display: inline-block;
+      pointer-events: auto;
       margin: 0;
       font-size: 1.8em;
       font-weight: 400;
@@ -119,5 +129,26 @@ export default {
       }
     }
   }
+}
+.second {
+  background: linear-gradient(to bottom, rgb(70, 70, 70), rgb(168, 168, 168));
+  .snow {
+    position: absolute;
+    width: 100%;
+  }
+  .wrapper {
+    p {
+      margin: 0;
+      text-align: center;
+      font-family: 'KOTRALEAP';
+      font-size: 1.4em;
+      padding-top: 50px;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 0 10px rgb(0, 0, 0);
+    }
+  }
+}
+.third {
+  background: linear-gradient(to bottom, rgb(168, 168, 168), rgb(255, 255, 255));
 }
 </style>
