@@ -1,6 +1,6 @@
 <template>
   <div class="container" @mousemove="cursorMove">
-    <section style="background: beige">
+    <section style="background: white">
       <div class="ball" ref="ball" />
       <div class="ball2" ref="balls" />
       1
@@ -38,9 +38,11 @@ export default {
   z-index: 100;
   width: 40px;
   height: 40px;
-  background: #aca9a9;
+  background: #fff;
   border-radius: 50%;;
   border: 15px solid #333333;
+  mix-blend-mode: difference;
+  will-change: transform;
 }
 .ball2{
   position: absolute;
@@ -49,9 +51,11 @@ export default {
   z-index: 100;
   width: 40px;
   height: 40px;
-  background: #aca9a9;
+  background: #fff;
   border-radius: 50%;;
   border: 15px solid #333333;
+  mix-blend-mode: difference;
+  will-change: transform;
 }
 .container {
   position: relative;

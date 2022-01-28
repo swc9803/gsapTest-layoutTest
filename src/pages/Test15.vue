@@ -11,10 +11,13 @@
     </div>
   </div>
   <div class="container">
-    소개
+    About Me
   </div>
   <div class="container">
     작업물
+  </div>
+  <div class="container">
+    Contact
   </div>
 </template>
 
