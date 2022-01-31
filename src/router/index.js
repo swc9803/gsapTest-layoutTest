@@ -16,6 +16,8 @@ import Test13 from '@/pages/Test13.vue'
 import Test14 from '@/pages/Test14.vue'
 import Test15 from '@/pages/Test15.vue'
 import Test16 from '@/pages/Test16.vue'
+import Test17 from '@/pages/Test17.vue'
+import Test18 from '@/pages/Test18.vue'
 
 const routes = [
   {
@@ -107,6 +109,16 @@ const routes = [
     path: '/test16',
     name: 'Test16',
     component: Test16
+  },
+  {
+    path: '/test17',
+    name: 'Test17',
+    component: Test17
+  },
+  {
+    path: '/test18',
+    name: 'Test18',
+    component: Test18
   }
 ]
 

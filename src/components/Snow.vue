@@ -1,5 +1,5 @@
 <template>
-  <svg id="snow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1920 1080">
+  <svg id="snow" preserveAspectRatio="none" height="100%" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1920 1080">
     <g id="lsnow1" ref="lsnow1" fill="#fff" fill-opacity=".8">
       <circle id="Ellipse 169" cx="290.2" cy="4" r="4"/>
       <circle id="Ellipse 180" cx="27" cy="157.1" r="4"/>
