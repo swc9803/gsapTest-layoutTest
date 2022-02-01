@@ -1,5 +1,6 @@
 <template>
-  <div class="items">
+  <div class="items" ref="slider"
+  @mousedown="sliderDown" @mouseleave="sliderLeave" @mouseup="sliderUp" @mousemove="sliderMove">
     <div class="item">01</div>
     <div class="item">02</div>
     <div class="item">03</div>
@@ -13,72 +14,41 @@
 </template>
 
 <script>
-import { onMounted } from 'vue'
+import { ref } from 'vue'
 export default {
   setup () {
-    onMounted(() => {
-      const slider = document.querySelector('.items')
-      let isDown = false
-      let startX
-      let scrollLeft
+    const slider = ref()
+    let isDown = false
+    let startX
+    let scrollLeft
 
-      slider.addEventListener('mousedown', (e) => {
-        isDown = true
-        slider.classList.add('active')
-        startX = e.pageX - slider.offsetLeft
-        scrollLeft = slider.scrollLeft
-      })
-
-      slider.addEventListener('mouseleave', () => {
-        isDown = false
-        slider.classList.remove('active')
-      })
-
-      slider.addEventListener('mouseup', () => {
-        isDown = false
-        slider.classList.remove('active')
-      })
-
-      slider.addEventListener('mousemove', (e) => {
-        if (!isDown) return
-        e.preventDefault()
-        const x = e.pageX - slider.offsetLeft
-        const walk = (x - startX) * 2
-        slider.scrollLeft = scrollLeft - walk
-      })
-
-      slider.addEventListener('touchstart', (e) => {
-        isDown = true
-        slider.classList.add('active')
-        startX = e.pageX - slider.offsetLeft
-        scrollLeft = slider.scrollLeft
-      })
-
-      slider.addEventListener('touchend', () => {
-        isDown = false
-        slider.classList.remove('active')
-      })
-
-      slider.addEventListener('touchcancel', () => {
-        isDown = false
-        slider.classList.remove('active')
-      })
-
-      slider.addEventListener('touchmove', (e) => {
-        if (!isDown) return
-        e.preventDefault()
-        const x = e.pageX - slider.offsetLeft
-        const walk = (x - startX) * 2
-        slider.scrollLeft = scrollLeft - walk
-      })
-    })
+    const sliderDown = (e) => {
+      isDown = true
+      startX = e.pageX - slider.value.offsetLeft
+      scrollLeft = slider.value.scrollLeft
+    }
+    const sliderLeave = () => {
+      isDown = false
+    }
+    const sliderUp = () => {
+      isDown = false
+    }
+    const sliderMove = (e) => {
+      if (!isDown) return
+      e.preventDefault()
+      const x = e.pageX - slider.value.offsetLeft
+      const walk = (x - startX) * 2
+      slider.value.scrollLeft = scrollLeft - walk
+    }
+    return {
+      slider, sliderDown, sliderLeave, sliderUp, sliderMove
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .items {
-  height: 400px;
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
@@ -90,11 +60,8 @@ export default {
   perspective: 500px;
   transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: grab;
-  &.active {
-    cursor: grabbing;
-  }
   .item {
-    width: 300px;
+    width: 100%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -102,9 +69,7 @@ export default {
     font-weight: 100;
     color: rgba(0,0,0,0.5);
     box-shadow: inset 0 0 0 10px rgba(0,0,0,0.15);
-    &:hover {
-      transform: scale(2);
-    }
+    margin-right: 50px;
   }
 }
 

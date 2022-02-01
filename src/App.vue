@@ -13,4 +13,9 @@
   width: 100%;
   height: 100%;
 }
+.box {
+  width: 50px;
+  height: 50px;
+  background: blue;
+}
 </style>
